@@ -1,11 +1,6 @@
-'use client'
-
-import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 export default function AuthCodeErrorPage() {
-  const router = useRouter()
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-md w-full space-y-6 p-8 bg-white rounded-xl shadow-lg text-center">
@@ -21,20 +16,19 @@ export default function AuthCodeErrorPage() {
         </p>
 
         <div className="space-y-3">
-          <Button 
-            onClick={() => router.push('/login')}
-            className="w-full"
+          <Link 
+            href="/login"
+            className="block w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             Back to Login
-          </Button>
+          </Link>
           
-          <Button 
-            onClick={() => router.push('/signup')}
-            variant="outline"
-            className="w-full"
+          <Link 
+            href="/signup"
+            className="block w-full py-2 px-4 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
           >
             Create Account
-          </Button>
+          </Link>
         </div>
       </div>
     </div>
