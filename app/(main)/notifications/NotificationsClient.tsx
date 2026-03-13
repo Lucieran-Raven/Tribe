@@ -39,7 +39,10 @@ export function NotificationsClient({ currentUser, notifications: initialNotific
               .eq('id', newNotification.sender_id)
               .single()
             
-            setNotifications((prev) => [{ ...newNotification, sender }, ...prev])
+            const notificationWithSender = sender 
+              ? { ...newNotification, sender }
+              : { ...newNotification }
+            setNotifications((prev) => [notificationWithSender, ...prev])
           } else {
             setNotifications((prev) => [newNotification, ...prev])
           }
