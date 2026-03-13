@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { meilisearch, MEILI_INDEXES } from '@/lib/meilisearch/client'
+import { meilisearch, MEILI_INDEXES, isMeilisearchEnabled } from '@/lib/meilisearch/client'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -9,6 +9,16 @@ export async function GET(request: Request) {
   
   if (!query.trim()) {
     return NextResponse.json({ results: [] })
+  }
+
+  // Return empty if Meilisearch not configured
+  if (!isMeilisearchEnabled) {
+    return NextResponse.json({ 
+      results: [],
+      total: 0,
+      query,
+      message: 'Search not configured'
+    })
   }
 
   try {

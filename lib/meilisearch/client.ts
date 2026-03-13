@@ -1,9 +1,14 @@
 import { MeiliSearch, Settings } from 'meilisearch'
 
-export const meilisearch = new MeiliSearch({
-  host: process.env.MEILISEARCH_HOST!,
-  apiKey: process.env.MEILISEARCH_API_KEY!,
-})
+const host = process.env.MEILISEARCH_HOST
+const apiKey = process.env.MEILISEARCH_API_KEY
+
+// Create client only if env vars are set
+export const meilisearch = host && apiKey && !host.includes('your-meilisearch')
+  ? new MeiliSearch({ host, apiKey })
+  : null as any
+
+export const isMeilisearchEnabled = !!meilisearch
 
 export const MEILI_INDEXES = {
   posts: 'posts',
