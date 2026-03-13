@@ -48,3 +48,4 @@ CLOUDFLARE_R2_SETUP.md
 next-env.d.ts
 
 .vercel
+.env*.local
