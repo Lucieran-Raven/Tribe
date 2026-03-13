@@ -9,7 +9,7 @@ import type { User } from '@/types/user'
 
 interface NotificationsClientProps {
   currentUser: User
-  notifications: (Notification & { sender?: User })[]
+  notifications: (Notification & { sender?: { id: string; username: string; display_name: string; avatar_url?: string } })[]
 }
 
 export function NotificationsClient({ currentUser, notifications: initialNotifications }: NotificationsClientProps) {
@@ -39,7 +39,14 @@ export function NotificationsClient({ currentUser, notifications: initialNotific
               .eq('id', newNotification.sender_id)
               .single()
             
-            setNotifications((prev) => [{ ...newNotification, sender }, ...prev])
+            const senderData = sender ? {
+              id: sender.id as string,
+              username: sender.username as string,
+              display_name: sender.display_name as string,
+              avatar_url: sender.avatar_url as string | undefined
+            } : undefined
+            
+            setNotifications((prev) => [{ ...newNotification, sender: senderData }, ...prev])
           } else {
             setNotifications((prev) => [newNotification, ...prev])
           }
@@ -77,7 +84,7 @@ export function NotificationsClient({ currentUser, notifications: initialNotific
     }
   }, [currentUser.id, supabase])
 
-  const getNotificationText = (notification: Notification & { sender?: User }) => {
+  const getNotificationText = (notification: Notification & { sender?: { id: string; username: string; display_name: string; avatar_url?: string } }) => {
     const senderName = notification.sender?.username || 'Someone'
     
     switch (notification.type) {
