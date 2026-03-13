@@ -12,5 +12,5 @@ export interface Notification {
     username: string
     display_name: string
     avatar_url?: string
-  } | null
+  }
 }
