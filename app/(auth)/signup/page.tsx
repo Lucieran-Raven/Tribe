@@ -67,7 +67,7 @@ export default function SignupPage() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: 'https://tribenetworking.vercel.app/auth/callback',
+        redirectTo: 'https://tribe-2t7pctjpm-lucieranraven-5727s-projects.vercel.app/auth/callback',
       },
     })
 
