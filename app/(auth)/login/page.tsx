@@ -39,7 +39,7 @@ export default function LoginPage() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: 'https://tribenetworking.vercel.app/auth/callback',
       },
     })
 
@@ -116,7 +116,7 @@ export default function LoginPage() {
               value={email}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
               className="mt-1"
-              placeholder="you@university.edu"
+              placeholder="you@example.com"
             />
           </div>
 
